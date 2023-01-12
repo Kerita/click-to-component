@@ -1,0 +1,23 @@
+.context-menu {
+	background: white;
+	border-radius: 20px;
+	padding: 12px;
+}
+
+.context-menu-item {
+	margin-top: 10px;
+	cursor: pointer;
+}
+
+.context-menu-item:hover {
+	font-weight: 500;
+	color: pink;
+}
+.longest-file-name {
+	font-weight: 500;
+	height: 0;
+	overflow: hidden;
+	/* 非等宽字体，即使长度最长，展示时也未必是最长的 */
+	/* 加 10px 补齐 */
+	padding-right: 10px;
+}

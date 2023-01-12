@@ -1,23 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import ClickToComponent from "./ClickToComponent";
+import Parent from "./Parent";
+
+// React
+// https://reactjs.org/blog/2015/12/18/react-components-elements-and-instances.html
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div className="App">
+        Container
+        <Parent />
+      </div>
+
+      <ClickToComponent />
     </div>
   );
 }
