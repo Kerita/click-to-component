@@ -10,7 +10,7 @@ function App() {
     <div>
       <div className="App">
         Container
-        <Parent />
+        <Parent title="parent" list={[1, 2, 3, 4]} />
       </div>
 
       <ClickToComponent />

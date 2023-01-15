@@ -4,6 +4,9 @@ import getReactInstancesForElement from "./getReactInstancesForElement";
 import getSourceForInstance from "./getSourceForInstance";
 import openInstanceInEditor from "./openInstanceInEditor";
 import openElementInEditor from "./openElementInEditor";
+import getDisplayNameForInstance from "./getDisplayNameForInstance";
+import getPropsForInstance from "./getPropsForInstance";
+import getStateForInstance from "./getStateForInstance";
 import "./index.css";
 
 export const OPTION_KEY_STATUS = {
@@ -106,8 +109,14 @@ export default function ClickToComponent({ editor = "vscode" }) {
         {instances.map((instance) => {
           const { columnNumber, fileName, lineNumber } =
             getSourceForInstance(instance);
-          const path = `${fileName}:${lineNumber}:${columnNumber}`;
+          const path = `${fileName}:${lineNumber}:${columnNumber}`.replace(
+            /.*(src|pages)/,
+            "$1"
+          );
           longestPath = path.length > longestPath.length ? path : longestPath;
+          const props = getPropsForInstance(instance);
+          const state = getStateForInstance(instance);
+          console.log("kerita log:", instance, "instance");
           return (
             <div
               key={instance.selfBaseDuration}
@@ -119,6 +128,32 @@ export default function ClickToComponent({ editor = "vscode" }) {
                 openInstanceInEditor(instance, editor);
               }}
             >
+              <div className="name">
+                <code>
+                  {`<${getDisplayNameForInstance(instance)} />`}
+                  {!!props && (
+                    <div className="props">
+                      Props:{" "}
+                      {Object.entries(props).map(([prop, value]) => (
+                        <span key={prop} title={value}>
+                          {prop === "children" ? null : `${prop}=${value}  `}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+
+                  {!!state && (
+                    <div className="props">
+                      State:{" "}
+                      {Object.entries(state).map(([key, value]) => (
+                        <span key={key} title={value}>
+                          {`${key}=${value}  `}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </code>
+              </div>
               <div>{path}</div>
             </div>
           );
